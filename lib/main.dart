@@ -30,6 +30,15 @@ class HomeActivity extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ButtonStyle buttonStyle = TextButton.styleFrom(
+      padding: EdgeInsets.all(10),
+      backgroundColor: Colors.amberAccent,
+      foregroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Expense Tracker"),
@@ -153,50 +162,72 @@ class HomeActivity extends StatelessWidget {
           ],
         ),
       ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: Column(
         children: [
-          Container(
-            height: 100,
-            width: 100,
-            child: Image.network(
-              'https://static.vecteezy.com/system/resources/thumbnails/057/068/323/small/single-fresh-red-strawberry-on-table-green-background-food-fruit-sweet-macro-juicy-plant-image-photo.jpg',
-            ),
-            alignment: Alignment.center,
-            margin: EdgeInsets.all(10),
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Colors.amberAccent,
-              border: Border.all(color: Colors.blue, width: 2),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                height: 100,
+                width: 100,
+                child: Image.network(
+                  'https://static.vecteezy.com/system/resources/thumbnails/057/068/323/small/single-fresh-red-strawberry-on-table-green-background-food-fruit-sweet-macro-juicy-plant-image-photo.jpg',
+                ),
+                alignment: Alignment.center,
+                margin: EdgeInsets.all(10),
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.amberAccent,
+                  border: Border.all(color: Colors.blue, width: 2),
+                ),
+              ),
+              Container(
+                height: 100,
+                width: 100,
+                child: Image.network(
+                  'https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
+                ),
+                alignment: Alignment.center,
+                margin: EdgeInsets.all(10),
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.amberAccent,
+                  border: Border.all(color: Colors.blue, width: 2),
+                ),
+              ),
+              Container(
+                height: 100,
+                width: 100,
+                child: Image.network(
+                  'https://cdn.pixabay.com/photo/2024/05/26/10/15/bird-8788491_1280.jpg',
+                ),
+                alignment: Alignment.center,
+                margin: EdgeInsets.all(10),
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.amberAccent,
+                  border: Border.all(color: Colors.blue, width: 2),
+                ),
+              ),
+            ],
           ),
-          Container(
-            height: 100,
-            width: 100,
-            child: Image.network(
-              'https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-            ),
-            alignment: Alignment.center,
-            margin: EdgeInsets.all(10),
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Colors.amberAccent,
-              border: Border.all(color: Colors.blue, width: 2),
-            ),
-          ),
-          Container(
-            height: 100,
-            width: 100,
-            child: Image.network(
-              'https://cdn.pixabay.com/photo/2024/05/26/10/15/bird-8788491_1280.jpg',
-            ),
-            alignment: Alignment.center,
-            margin: EdgeInsets.all(10),
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Colors.amberAccent,
-              border: Border.all(color: Colors.blue, width: 2),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              TextButton(
+                onPressed: () {
+                  mySnackBar('My Button', context);
+                },
+                child: Text('Button'),
+                style: buttonStyle,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  mySnackBar('Elevated Button', context);
+                },
+                child: Text('Elevated Button'),
+              ),
+            ],
           ),
         ],
       ),
