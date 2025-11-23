@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeActivity extends StatelessWidget {
-    HomeActivity({super.key});
+  HomeActivity({super.key});
 
   mySnackBar(message, context) {
     return ScaffoldMessenger.of(
@@ -54,50 +54,49 @@ class HomeActivity extends StatelessWidget {
   }
 
   final List<Map<String, dynamic>> myListItem = [
-  {
-    "name": "Rasel",
-    "age": 24,
-    "roll": 220812,
-    "img":
-        "https://static.vecteezy.com/system/resources/thumbnails/057/068/323/small/single-fresh-red-strawberry-on-table-green-background-food-fruit-sweet-macro-plant-image-photo.jpg"
-  },
-  {
-    "name": "Jony",
-    "age": 26,
-    "roll": 220813,
-    "img":
-        "https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000"
-  },
-  {
-    "name": "Sakib",
-    "age": 30,
-    "roll": 220814,
-    "img":
-        "https://cdn.pixabay.com/photo/2024/05/26/10/15/bird-8788491_1280.jpg"
-  },
-  {
-    "name": "Kalam",
-    "age": 28,
-    "roll": 220815,
-    "img":
-        "https://static.vecteezy.com/system/resources/thumbnails/057/068/323/small/single-fresh-red-strawberry-on-table-green-background-food-fruit-sweet-macro-plant-image-photo.jpg"
-  },
-  {
-    "name": "Salam",
-    "age": 22,
-    "roll": 220816,
-    "img":
-        "https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000"
-  },
-  {
-    "name": "Balam",
-    "age": 27,
-    "roll": 220817,
-    "img":
-        "https://cdn.pixabay.com/photo/2024/05/26/10/15/bird-8788491_1280.jpg"
-  },
-];
-
+    {
+      "name": "Rasel",
+      "age": 24,
+      "roll": 220812,
+      "img":
+          "https://w0.peakpx.com/wallpaper/887/923/HD-wallpaper-garden-waterfalls-garden-imge-nature-waterfalls.jpg",
+    },
+    {
+      "name": "Jony",
+      "age": 26,
+      "roll": 220813,
+      "img":
+          "https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000",
+    },
+    {
+      "name": "Sakib",
+      "age": 30,
+      "roll": 220814,
+      "img":
+          "https://cdn.pixabay.com/photo/2024/05/26/10/15/bird-8788491_1280.jpg",
+    },
+    {
+      "name": "Kalam",
+      "age": 28,
+      "roll": 220815,
+      "img":
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS635r9wzZ_KdmJO2C-1B7HsWkxtbg5b17AUqHUfGxfYt8MJXqrUNrbjYgW_u8v64jcosw&usqp=CAU",
+    },
+    {
+      "name": "Salam",
+      "age": 22,
+      "roll": 220816,
+      "img":
+          "https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000",
+    },
+    {
+      "name": "Balam",
+      "age": 27,
+      "roll": 220817,
+      "img":
+          "https://cdn.pixabay.com/photo/2024/05/26/10/15/bird-8788491_1280.jpg",
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -301,10 +300,15 @@ class HomeActivity extends StatelessWidget {
             ],
           ),
 
-           Row(
+          Row(
             children: [
               Expanded(
-                child: ListView.builder(
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 2,
+                    childAspectRatio: 1.2,
+                  ),
                   itemCount: myListItem.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
@@ -313,18 +317,27 @@ class HomeActivity extends StatelessWidget {
                         mySnackBar(myListItem[index]['name'], context);
                       },
                       onDoubleTap: () {
-                        mySnackBar(myListItem[index]['age'].toString(), context);
+                        mySnackBar(
+                          myListItem[index]['age'].toString(),
+                          context,
+                        );
                       },
                       onLongPress: () {
-                        mySnackBar(myListItem[index]['roll'].toString(), context);
+                        mySnackBar(
+                          myListItem[index]['roll'].toString(),
+                          context,
+                        );
                       },
-                      
-                      child:Container(
+
+                      child: Container(
                         margin: EdgeInsets.all(10),
                         width: double.infinity,
                         height: 150,
-                        child: Image.network(myListItem[index]['img']!, fit: BoxFit.fill)
-                      )
+                        child: Image.network(
+                          myListItem[index]['img']!,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
                     );
                   },
                 ),
@@ -367,9 +380,6 @@ class HomeActivity extends StatelessWidget {
               child: Text("Submit"),
             ),
           ),
-
-         
-
         ],
       ),
     );
