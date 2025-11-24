@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/Fragment/Home.dart';
 
 main() {
   runApp(const MyApp());
@@ -32,7 +31,9 @@ class HomeActivity extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ActivityPage()),
+                MaterialPageRoute(
+                  builder: (context) => ActivityPage("Activity Route Page"),
+                ),
               );
             },
             child: Text("Activity Page"),
@@ -53,13 +54,13 @@ class HomeActivity extends StatelessWidget {
 }
 
 class ActivityPage extends StatelessWidget {
+  String msg;
+  ActivityPage(this.msg, {super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Activity Page"),
-        backgroundColor: Colors.greenAccent,
-      ),
+      appBar: AppBar(title: Text(msg), backgroundColor: Colors.greenAccent),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -91,7 +92,9 @@ class ActivityPage2 extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ActivityPage()),
+              MaterialPageRoute(
+                builder: (context) => ActivityPage("Coming from ActivityPage2"),
+              ),
             );
           },
           child: Text("Go Activity Page"),
