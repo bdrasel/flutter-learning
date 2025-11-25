@@ -19,30 +19,48 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeActivity extends StatelessWidget {
+class HomeActivity extends StatefulWidget {
+  @override
+  _HomeActivityState createState() => _HomeActivityState();
+}
+
+class _HomeActivityState extends State<HomeActivity> {
+  int count = 0;
+
+  void increment() {
+    setState(() {
+      count++;
+    });
+  }
+
+  void decrement() {
+    setState(() {
+      count--;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Home"), backgroundColor: Colors.greenAccent),
       body: Center(
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-          elevation: 25,
-          shadowColor: Color.fromARGB(255, 5, 165, 27),
-          color: Color.fromARGB(255, 5, 165, 27),
-          child: SizedBox(
-            width: 200,
-            height: 150,
-
-            child: Center(
-              child: Text(
-                "This is a card",
-                style: TextStyle(color: Colors.white),
-              ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "$count",
+              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             ),
-          ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(onPressed: increment, child: Text("Increemnt")),
+                const SizedBox(width: 20),
+                ElevatedButton(onPressed: decrement, child: Text("Decreemnt")),
+              ],
+            ),
+          ],
         ),
       ),
     );
