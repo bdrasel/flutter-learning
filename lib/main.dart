@@ -39,6 +39,12 @@ class _HomeActivityState extends State<HomeActivity> {
     });
   }
 
+  void reset() {
+    setState(() {
+      count = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,13 +57,15 @@ class _HomeActivityState extends State<HomeActivity> {
               "$count",
               style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(onPressed: increment, child: Text("Increemnt")),
-                const SizedBox(width: 20),
+                const SizedBox(width: 10),
                 ElevatedButton(onPressed: decrement, child: Text("Decreemnt")),
+                const SizedBox(width: 10),
+                ElevatedButton(onPressed: reset, child: Text("Reset")),
               ],
             ),
           ],
