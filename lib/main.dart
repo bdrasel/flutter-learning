@@ -14,59 +14,88 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.green),
       darkTheme: ThemeData(primarySwatch: Colors.brown),
       debugShowCheckedModeBanner: false,
-      home: HomeActivity(),
+      home: TodoPage(),
     );
   }
 }
 
-class HomeActivity extends StatefulWidget {
+// class HomeActivity extends StatefulWidget {
+//   @override
+//   _HomeActivityState createState() => _HomeActivityState();
+// }
+
+class TodoPage extends StatefulWidget {
   @override
-  _HomeActivityState createState() => _HomeActivityState();
+  State<TodoPage> createState() => _TodoPageState();
 }
 
-class _HomeActivityState extends State<HomeActivity> {
-  int count = 0;
+class _TodoPageState extends State<TodoPage> {
+  final TextEditingController _controller = TextEditingController();
+  List<String> todos = [];
 
-  void increment() {
+  void addTodo() {
+    if (_controller.text.trim().isEmpty) return;
     setState(() {
-      count++;
+      todos.add(_controller.text.trim());
+      _controller.clear();
     });
   }
 
-  void decrement() {
+  void removeTodo(int index) {
     setState(() {
-      count--;
-    });
-  }
-
-  void reset() {
-    setState(() {
-      count = 0;
+      todos.removeAt(index);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Home"), backgroundColor: Colors.greenAccent),
-      body: Center(
+      appBar: AppBar(
+        title: Text("Simple Todo (${todos.length})"),
+        backgroundColor: Colors.greenAccent,
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "$count",
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(onPressed: increment, child: Text("Increemnt")),
-                const SizedBox(width: 10),
-                ElevatedButton(onPressed: decrement, child: Text("Decreemnt")),
-                const SizedBox(width: 10),
-                ElevatedButton(onPressed: reset, child: Text("Reset")),
+                Expanded(
+                  child: TextField(
+                    controller: _controller,
+                    decoration: InputDecoration(
+                      hintText: "Enter todo...",
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: addTodo,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.greenAccent,
+                  ),
+                  child: Text('Add', style: TextStyle(color: Colors.white)),
+                ),
               ],
+            ),
+            SizedBox(height: 20),
+
+            //
+            Expanded(
+              child: ListView.builder(
+                itemCount: todos.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
+                      title: Text(todos[index]),
+                      trailing: Icon(Icons.delete, color: Colors.red),
+                      onTap: () => removeTodo(index),
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),
