@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 
 main() {
   runApp(const MyApp());
@@ -24,6 +26,16 @@ class _TodoPageState extends State<TodoPage> {
   List<Map<String, dynamic>> todos = [];
   // {text: "", completed: false}
   int? editIndex;
+
+  // Speech recognition
+  late SpeechToText _speech;
+  bool _isListening = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _speech = SpeechToText();
+  }
 
   void addOrUpdateTodo() {
     if (_controller.text.trim().isEmpty) return;
@@ -59,6 +71,43 @@ class _TodoPageState extends State<TodoPage> {
     setState(() {
       todos[index]["completed"] = !todos[index]["completed"];
     });
+  }
+
+  void listen() async {
+    bool available = await _speech.initialize(
+      onStatus: (status) {
+        print('Status: $status');
+        if (status == 'done' || status == 'notListening') {
+          stopListening(); // stop automatically when done
+        }
+      },
+      onError: (error) => print('Error: $error'),
+    );
+
+    if (available) {
+      setState(() => _isListening = true);
+      _speech.listen(
+        onResult: (result) {
+          final text = result.recognizedWords.trim();
+          if (text.isNotEmpty) {
+            // Always add new todo, ignore editIndex
+            setState(() {
+              todos.add({"text": text, "completed": false});
+              _controller.clear();
+            });
+
+            // Optional: stop listening after one task
+            stopListening();
+          }
+        },
+        listenMode: ListenMode.confirmation, // better for single phrases
+      );
+    }
+  }
+
+  void stopListening() {
+    _speech.stop();
+    setState(() => _isListening = false);
   }
 
   @override
@@ -172,6 +221,15 @@ class _TodoPageState extends State<TodoPage> {
           ],
         ),
       ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 30),
+        child: FloatingActionButton(
+          onPressed: _isListening ? stopListening : listen,
+          backgroundColor: Colors.green,
+          child: Icon(_isListening ? Icons.mic : Icons.mic_none),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
