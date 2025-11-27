@@ -225,7 +225,7 @@ class _TodoPageState extends State<TodoPage> {
         padding: const EdgeInsets.only(bottom: 30),
         child: FloatingActionButton(
           onPressed: _isListening ? stopListening : listen,
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.greenAccent,
           child: Icon(_isListening ? Icons.mic : Icons.mic_none),
         ),
       ),
